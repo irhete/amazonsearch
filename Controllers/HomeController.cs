@@ -14,9 +14,7 @@ namespace MvcDemo.Controllers
 
         public ActionResult Index()
         {
-            Dictionary<string, string> currencies = Currencies.getCurrencies();
-            ViewData["currencies"] = currencies;
-            return View(); 
+            return View("Index"); 
         }
 
 
@@ -33,6 +31,8 @@ namespace MvcDemo.Controllers
 
             ViewData["items"] = result.getItems();
             ViewData["totalPages"] = result.getTotalPages();
+            ViewData["totalResults"] = result.getTotalResults();
+            ViewData["time"] = String.Format(new System.Globalization.CultureInfo("en-GB"), "{0:0.0000}", result.getTime());
             return View();
             
         }

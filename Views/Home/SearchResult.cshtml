@@ -4,15 +4,21 @@
 
 
 
-@{int page = Request.Params["page"].AsInt();
-  int totalPages = (int) ViewData["totalPages"];
+@{var page = Request.Params["page"].AsInt();
+  var totalPages = (int) ViewData["totalPages"];
   var keywords = Request.Params["keywords"];
   var items = ViewData["items"] as List<Amazon.Models.Item>;
+  var time = ViewData["time"];
+  var totalResults = ViewData["totalResults"];
   }
-<h2>@keywords</h2>
+<p>@totalResults results in @time seconds</p>
 
+<form action="" >
+<select id="currencies">
 
-
+</select>
+</form>
+<br />
 <table id="itemsTable">
     <tr>
         <th>Image</th><th>Title</th><th>Price</th>
@@ -27,24 +33,26 @@
             <td><a href=@item.getUrl()>@item.getTitle()</a>
             </td>
             <td class="price" title=@item.getPrice()>
-            
-                @item.getPrice()/100.0
-            
+                @if (item.getPrice() != 0) { 
+                    @String.Format(new System.Globalization.CultureInfo("en-GB"), "{0:0.00}", item.getPrice() / 100.0)
+                }
+                
+                
             </td>
             </tr>
         }
            
 </table>
 
-<table>
+<table id="pager">
 <tr>
-<td>
+<td id="previous">
 @if (page > 1)
 {
     @Html.ActionLink("<< Previous", "SearchResult", new { page = page - 1, keywords = keywords });
 }
 </td>
-<td>
+<td id="next">
 @if (page < totalPages)
 {
     @Html.ActionLink("Next >>", "SearchResult", new { page = page + 1, keywords = keywords });

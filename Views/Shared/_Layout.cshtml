@@ -8,14 +8,6 @@
 <script src="@Url.Content("~/Scripts/modernizr-1.7.min.js")"></script>
 <script src="@Url.Content("~/Scripts/currency-changer.js")"></script>
 
-@*<script>
-    $(document).ready(function () {
-        $("#currencies").hide();
-        $("#submitButton").change(function () {
-                $("#currencies").show();
-        });
-    });
-</script>*@
 </head>
 <body>
 
@@ -25,28 +17,12 @@
 <h2>Enter Keyword(s)</h2>
 
 @using (Html.BeginForm("SearchResult", "Home", FormMethod.Get)) 
-{  
-<input type="text" name="keywords" value="" /><br />
+{
+    
+<input type="text" name="keywords" value="@Request.Params["keywords"]" /><br />
 <input type="hidden" name="page" value="1"/>
 <input type="submit" value="Search" class="submit" id="searchButton" />
 }
-<br />
-<form action="" >
-<select id="currencies">
-@{var currencies = ViewData["currencies"] as Dictionary<string, string>;}
-@foreach (KeyValuePair<string, string> pair in currencies)
-{
-    if (pair.Key == "USD")
-    {
-        <option value=@pair.Key  selected>@pair.Value</option>
-    }
-    else
-    {
-<option value=@pair.Key  >@pair.Value</option>
-    }
-}
-</select>
-</form>
 
 @RenderBody()
 </section>

@@ -7,6 +7,7 @@ using System.Net;
 using System.Xml;
 using AmazonProductAdvtApi;
 using System.Diagnostics;
+using System.Globalization;
 
 namespace Amazon.Models
 {
@@ -46,7 +47,8 @@ namespace Amazon.Models
                + "&SearchIndex=Blended"
                ;
             requestUrl = signer.Sign(requestString);
-            List<Item> items =  FetchItemsInfo(requestUrl);
+            SearchResultModel result = FetchItemsInfo(requestUrl);
+            List<Item> items = result.getItems();
             Debug.WriteLine(requestUrl);
 
             List<Item> newItems = new List<Item>();
@@ -59,19 +61,21 @@ namespace Amazon.Models
                 }
                 int totalPages = (int) Math.Ceiling(items.Count / 13.0);
             
-            return new SearchResultModel(newItems, totalPages);
+            return new SearchResultModel(newItems, totalPages, items.Count, result.getTime());
         }
 
 
-            private static List<Item> FetchItemsInfo(string url)
+        private static SearchResultModel FetchItemsInfo(string url)
         {
                 List<Item> items = new List<Item>();
+                double time = 0;
             try
             {
                 WebRequest request = HttpWebRequest.Create(url);
                 WebResponse response = request.GetResponse();
                 XmlDocument doc = new XmlDocument();
                 doc.Load(response.GetResponseStream());
+                XmlNodeList itemNodes = doc.GetElementsByTagName("Item");
 
                 XmlNodeList errorMessageNodes = doc.GetElementsByTagName("Message");
                 if (errorMessageNodes != null && errorMessageNodes.Count > 0)
@@ -81,7 +85,12 @@ namespace Amazon.Models
                     
                 }
 
-                XmlNodeList itemNodes = doc.GetElementsByTagName("Item");
+
+                    XmlNodeList timeNodes = doc.GetElementsByTagName("RequestProcessingTime");
+                 NumberStyles styles = NumberStyles.AllowDecimalPoint;
+                 time = Double.Parse(timeNodes[0].InnerText, CultureInfo.InvariantCulture);
+               
+
                 foreach (XmlNode item in itemNodes)
                 {
                     XmlElement elem = (XmlElement) (item);
@@ -102,7 +111,7 @@ namespace Amazon.Models
                     try
                     {
                         price = Convert.ToInt64(elem["ItemAttributes"]["ListPrice"]["Amount"].InnerText);
-                        Debug.WriteLine(price);
+                        
                     }
                     catch {
                         price = 0;
@@ -120,7 +129,7 @@ namespace Amazon.Models
                 Debug.WriteLine("Stack Trace: " + e.StackTrace);
             }
 
-            return items;
+            return new SearchResultModel(items, time);
         }
     }
        
