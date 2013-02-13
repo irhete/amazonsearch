@@ -11,7 +11,7 @@ using System.Globalization;
 
 namespace Amazon.Models
 {
-    public class Items
+    public class ItemsFromAmazon
     {
 
         private const string AWS_ACCESS_KEY_ID = "AKIAJDUGWPW4F5SSEN4A";
@@ -20,55 +20,56 @@ namespace Amazon.Models
         private const string ASSOCIATE_TAG = "0545010225";
 
         private const string NAMESPACE = "http://webservices.amazon.com/AWSECommerceService/2011-08-01";
-            
+
         private const string SERVICE = "AWSECommerceService";
         private const string VERSION = "2011-08-01";
 
         public static SearchResultModel GetAmazonInfo(string keywords, int page)
         {
-            System.Globalization.CultureInfo cultureInfo = new System.Globalization.CultureInfo("en-US");
             System.Console.WriteLine("Start.");
             string requestUrl;
             Signer signer = new Signer(AWS_ACCESS_KEY_ID, AWS_SECRET_KEY, DESTINATION);
 
             string[] words = keywords.Split(' ');
             keywords = "";
-            foreach (string word in words) {
+            foreach (string word in words)
+            {
                 keywords += word + "%20";
             }
             keywords = keywords.Substring(0, keywords.Length - 3);
 
-           String requestString = "Service=" + SERVICE
-               + "&Version=" + VERSION
-               + "&Operation=ItemSearch"
-               + "&ResponseGroup=Medium"
-               + "&AssociateTag=" + ASSOCIATE_TAG
-               + "&Keywords=" + keywords
-               + "&SearchIndex=Blended"
-               ;
+            String requestString = "Service=" + SERVICE
+                + "&Version=" + VERSION
+                + "&Operation=ItemSearch"
+                + "&ResponseGroup=Medium"
+                + "&AssociateTag=" + ASSOCIATE_TAG
+                + "&Keywords=" + keywords
+                + "&SearchIndex=Blended"
+                ;
             requestUrl = signer.Sign(requestString);
             SearchResultModel result = FetchItemsInfo(requestUrl);
             List<Item> items = result.getItems();
-            Debug.WriteLine(requestUrl);
 
             List<Item> newItems = new List<Item>();
-                int i = (page-1) * 13;
-                while (i < items.Count && i < page * 13) { 
-                    newItems.Add(items[i]);
-                    i++;
-                }
-                if (i <= items.Count) { 
-                }
-                int totalPages = (int) Math.Ceiling(items.Count / 13.0);
-            
+            int i = (page - 1) * 13;
+            while (i < items.Count && i < page * 13)
+            {
+                newItems.Add(items[i]);
+                i++;
+            }
+            if (i <= items.Count)
+            {
+            }
+            int totalPages = (int)Math.Ceiling(items.Count / 13.0);
+
             return new SearchResultModel(newItems, totalPages, items.Count, result.getTime());
         }
 
 
         private static SearchResultModel FetchItemsInfo(string url)
         {
-                List<Item> items = new List<Item>();
-                double time = 0;
+            List<Item> items = new List<Item>();
+            double time = 0;
             try
             {
                 WebRequest request = HttpWebRequest.Create(url);
@@ -82,18 +83,17 @@ namespace Amazon.Models
                 {
                     String message = errorMessageNodes.Item(0).InnerText;
                     throw new Exception("Error: " + message + " (but signature worked)");
-                    
+
                 }
 
 
-                    XmlNodeList timeNodes = doc.GetElementsByTagName("RequestProcessingTime");
-                 NumberStyles styles = NumberStyles.AllowDecimalPoint;
-                 time = Double.Parse(timeNodes[0].InnerText, CultureInfo.InvariantCulture);
-               
+                XmlNodeList timeNodes = doc.GetElementsByTagName("RequestProcessingTime");
+                time = Double.Parse(timeNodes[0].InnerText, CultureInfo.InvariantCulture);
+
 
                 foreach (XmlNode item in itemNodes)
                 {
-                    XmlElement elem = (XmlElement) (item);
+                    XmlElement elem = (XmlElement)(item);
                     string title;
                     long price;
                     string image;
@@ -104,24 +104,26 @@ namespace Amazon.Models
                         image = elem["SmallImage"]["URL"].InnerText;
                         itemUrl = elem["DetailPageURL"].InnerText;
                     }
-                    catch {
+                    catch
+                    {
                         continue;
                     }
-                    
+
                     try
                     {
                         price = Convert.ToInt64(elem["ItemAttributes"]["ListPrice"]["Amount"].InnerText);
-                        
+
                     }
-                    catch {
+                    catch
+                    {
                         price = 0;
                     }
-                    
+
                     items.Add(new Item(title, price, image, itemUrl));
-                    
+
                 }
-                
-                
+
+
             }
             catch (Exception e)
             {
@@ -132,6 +134,6 @@ namespace Amazon.Models
             return new SearchResultModel(items, time);
         }
     }
-       
-        }
+
+}
     

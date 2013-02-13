@@ -26,10 +26,12 @@ namespace Amazon.Models
             this.time = time;
         }
 
-        public List<Item> getItems() {
+        public List<Item> getItems()
+        {
             return items;
         }
-        public int getTotalPages() {
+        public int getTotalPages()
+        {
             return totalPages;
         }
         public int getTotalResults()

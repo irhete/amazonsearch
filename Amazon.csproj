@@ -75,9 +75,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Item.cs" />
-    <Compile Include="Models\Items.cs" />
+    <Compile Include="Models\ItemsFromAmazon.cs" />
     <Compile Include="Models\SearchResultModel.cs" />
-    <Compile Include="Models\Signer.cs" />
+    <Compile Include="Models\UrlSigner.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -141,7 +141,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_LogOnPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
   </ItemGroup>

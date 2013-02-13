@@ -12,14 +12,16 @@ namespace Amazon.Models
         string image { get; set; }
         string url { get; set; }
 
-        public Item(string title, long price, string image, string url) {
+        public Item(string title, long price, string image, string url)
+        {
             this.title = title;
             this.price = price;
             this.image = image;
             this.url = url;
         }
 
-        public string getTitle() {
+        public string getTitle()
+        {
             return title;
         }
 

@@ -17,7 +17,7 @@ color: black;
 	border-spacing: 2px;
 	border-style: ridge;
 	border-collapse: collapse;
-	border-color: grey; 
+	border-color: #606060; 
 	width: 100%;
     }
 #itemsTable td
@@ -25,7 +25,7 @@ color: black;
  border-width: 2px;
 	padding: 10px;
 	border-style: ridge;
-	border-color: grey;   
+	border-color: #606060;   
     }
     
 #itemsTable tr:nth-of-type(odd) {
@@ -57,49 +57,9 @@ color: black;
 padding: 20px;
 background-color: #ffffff;
 }
+
 a
 {
 color: #034af3; 
 }
-/* Menu Styles ------------------------------*/ 
-ul#menu
-{
-padding: 0px;
-position: relative;
-margin: 0;
-}
-ul#menu li
-{
-display: inline;
-}
-ul#menu li a 
-{
-background-color: #e8eef4;
-padding: 10px 20px;
-text-decoration: none;
-line-height: 2.8em;
-/*CSS3 properties*/
-border-radius: 4px 4px 0 0;
-}
-ul#menu li a:hover
-{
-background-color: #ffffff;
-} 
-/* Forms Styles ------------------------------*/ 
-fieldset
-{
-padding-left: 12px;
-} 
-fieldset label
-{
-display: block;
-padding: 4px;
-}
-input[type="text"], input[type="password"]
-{
-width: 300px;
-}
-input[type="submit"]
-{
-padding: 4px;
-}
+
