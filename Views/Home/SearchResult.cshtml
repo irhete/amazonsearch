@@ -1,0 +1,56 @@
+﻿@{
+    ViewBag.Title = "Search Results";
+}
+
+
+
+@{int page = Request.Params["page"].AsInt();
+  int totalPages = (int) ViewData["totalPages"];
+  var keywords = Request.Params["keywords"];
+  var items = ViewData["items"] as List<Amazon.Models.Item>;
+  }
+<h2>@keywords</h2>
+
+
+
+<table id="itemsTable">
+    <tr>
+        <th>Image</th><th>Title</th><th>Price</th>
+    </tr>
+    
+        
+        @foreach (var item in items)
+        {
+            <tr>
+            <td><img border="0" src=@item.getImage() width="50" height="75">
+            </td>
+            <td><a href=@item.getUrl()>@item.getTitle()</a>
+            </td>
+            <td class="price" title=@item.getPrice()>
+            
+                @item.getPrice()/100.0
+            
+            </td>
+            </tr>
+        }
+           
+</table>
+
+<table>
+<tr>
+<td>
+@if (page > 1)
+{
+    @Html.ActionLink("<< Previous", "SearchResult", new { page = page - 1, keywords = keywords });
+}
+</td>
+<td>
+@if (page < totalPages)
+{
+    @Html.ActionLink("Next >>", "SearchResult", new { page = page + 1, keywords = keywords });
+ }
+ </td>
+ </tr>
+ </table>
+ <div id="currency"></div>
+
