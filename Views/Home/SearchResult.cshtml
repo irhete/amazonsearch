@@ -30,15 +30,15 @@
     {
         <tr>
             <td>
-                <img border="0" src=@item.getImage() width="50" height="75">
+                <img class="itemImage" src="@item.GetImage()" alt="@item.GetTitle()"/>
             </td>
             <td>
-                <a href=@item.getUrl()>@item.getTitle()</a>
+                <a href="@item.GetUrl()">@item.GetTitle()</a>
             </td>
-            <td class="price" title=@item.getPrice()>
-                @if (item.getPrice() != 0)
+            <td class="price" title="@item.GetPrice()">
+                @if (item.GetPrice() != 0)
                 { 
-                    @String.Format(new System.Globalization.CultureInfo("en-GB"), "{0:0.00}", item.getPrice() / 100.0)
+                    @String.Format(new System.Globalization.CultureInfo("en-GB"), "{0:0.00}", item.GetPrice() / 100.0)
                 }
             </td>
         </tr>

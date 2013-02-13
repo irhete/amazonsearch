@@ -26,19 +26,19 @@ namespace Amazon.Models
             this.time = time;
         }
 
-        public List<Item> getItems()
+        public List<Item> GetItems()
         {
             return items;
         }
-        public int getTotalPages()
+        public int GetTotalPages()
         {
             return totalPages;
         }
-        public int getTotalResults()
+        public int GetTotalResults()
         {
             return totalResults;
         }
-        public double getTime()
+        public double GetTime()
         {
             return time;
         }

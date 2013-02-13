@@ -29,10 +29,10 @@ namespace MvcDemo.Controllers
 
             SearchResultModel result = ItemsFromAmazon.GetAmazonInfo(keywords, page);
 
-            ViewData["items"] = result.getItems();
-            ViewData["totalPages"] = result.getTotalPages();
-            ViewData["totalResults"] = result.getTotalResults();
-            ViewData["time"] = String.Format(new System.Globalization.CultureInfo("en-GB"), "{0:0.0000}", result.getTime());
+            ViewData["items"] = result.GetItems();
+            ViewData["totalPages"] = result.GetTotalPages();
+            ViewData["totalResults"] = result.GetTotalResults();
+            ViewData["time"] = String.Format(new System.Globalization.CultureInfo("en-GB"), "{0:0.0000}", result.GetTime());
             return View();
 
         }

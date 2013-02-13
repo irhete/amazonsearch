@@ -20,22 +20,22 @@ namespace Amazon.Models
             this.url = url;
         }
 
-        public string getTitle()
+        public string GetTitle()
         {
             return title;
         }
 
-        public long getPrice()
+        public long GetPrice()
         {
             return price;
         }
 
-        public string getImage()
+        public string GetImage()
         {
             return image;
         }
 
-        public string getUrl()
+        public string GetUrl()
         {
             return url;
         }

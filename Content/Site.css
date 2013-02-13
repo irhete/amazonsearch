@@ -4,11 +4,17 @@ font: "Trebuchet MS", Verdana, sans-serif;
 background-color: #5c87b2;
 color: black;
 }
+
 h1
 {
 border-bottom: 3px solid #cc9900;
 font: Georgia, serif;
 color: black;
+}
+
+.itemImage {   
+    width: 50px;
+    height: 75px;
 }
 
 #itemsTable
