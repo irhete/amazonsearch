@@ -1,15 +1,15 @@
 ﻿body
 {
-font: "Trebuchet MS", Verdana, sans-serif;
-background-color: #5c87b2;
-color: black;
+    font: "Trebuchet MS", Verdana, sans-serif;
+    background-color: #5c87b2;
+    color: black;
 }
 
 h1
 {
-border-bottom: 3px solid #cc9900;
-font: Georgia, serif;
-color: black;
+    border-bottom: 3px solid #cc9900;
+    font: Georgia, serif;
+    color: black;
 }
 
 .itemImage {   
@@ -25,47 +25,51 @@ color: black;
 	border-collapse: collapse;
 	border-color: #606060; 
 	width: 100%;
-    }
+}
+    
 #itemsTable td
 {
  border-width: 2px;
 	padding: 10px;
 	border-style: ridge;
 	border-color: #606060;   
-    }
+}
     
 #itemsTable tr:nth-of-type(odd) {
   background-color: #C0C0C0;
-
 }
 
 #pager 
 {
     width: 100%;
     font-size: larger;
-    
-    }
+}
 
 #pager td 
 {
     padding: 5px;
-    }
+}
 
 #previous 
 {
     width: 50%;
     text-align: right;
-    
-    }
+}
+
+#searchButton
+{
+    margin: 5px;
+    padding: 3px;
+}
 
 #main
 {
-padding: 20px;
-background-color: #ffffff;
+    padding: 20px;
+    background-color: #ffffff;
 }
 
 a
 {
-color: #034af3; 
+    color: #034af3; 
 }
 

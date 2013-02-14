@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-    $.getJSON("http://openexchangerates.org/api/currencies.json?app_id=83199c2d40c34d21842aa05702e1cadc", function (result) {
+    $.getJSON("http://openexchangerates.org/api/currencies.json?app_id=83199c2d40c34d21842aa05702e1cadc&callback=?", function (result) {
         var $optionString = "";
         for (var $key in result) {
             $optionString += "<option value=" + $key;
@@ -12,7 +12,7 @@
     });
 
     $("#currencies").change(function () {
-        $.getJSON("http://openexchangerates.org/api/latest.json?app_id=83199c2d40c34d21842aa05702e1cadc", function (result) {
+        $.getJSON("http://openexchangerates.org/api/latest.json?app_id=83199c2d40c34d21842aa05702e1cadc&callback=?", function (result) {
             var currency = $("#currencies").val();
 
             var exchangeRate = parseFloat(result.rates[currency]);
